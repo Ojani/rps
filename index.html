@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RPS</title>
+
+    <script src="app.js" charset="utf-8"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet"></link>
+
+  </head>
+  <body>
+
+    <!-- join / create room screen -->
+
+    <div class="menuWrapper">
+
+      <div class="createRoom">
+        <div class="menuTitle">Create Room</div>
+
+          <div class="menuDescription">Create a game room with a unique code that you can share to invite a friend.</div>
+
+          <div class="createBtn">Create</div>
+
+      </div>
+
+
+      <div class="joinRoom">
+        <div class="menuTitle">Join Room</div>
+
+          <div class="menuDescription">Join a game room using it&apos;s code.</div>
+
+          <div class="joinBtn">Join</div>
+
+      </div>
+
+    </div>
+
+    <!-- game wrapper -->
+
+    <div class="gameWrapper">
+
+
+      <!-- info -->
+
+      <div class="gameInfo">
+
+        <div class="roomCode"><b>Room Code</b> <span>RoomName</span><i class="roomCopyBtn fas fa-copy"></i></div>
+        <br><br>
+
+        <div class="Scoreboard">
+
+          <div class="scoreBoardTitle">Scoreboard</div>
+
+          <div class="playerName name"><u><b>you:</b></u> <span>0</span>pts</div>
+          <div class="playerName opponent"><b>opponent:</b> <span>0</span>pts</div>
+
+        </div>
+
+        <br>
+        <div class="turn">It is <b><span>Player1</span>&apos;s</b> turn.</div>
+        <br>
+        <span class="restartBtn">⭮</span>
+
+      </div>
+
+      <!-- TABLE -->
+
+      <div class="tableWrapper">
+
+        <div class="table">
+
+          <div class="cell0"></div>
+          <div class="cell1"></div>
+          <div class="cell2"></div>
+          <div class="cell3"></div>
+          <div class="cell4"></div>
+          <div class="cell5"></div>
+          <div class="cell6"></div>
+          <div class="cell7"></div>
+          <div class="cell8"></div>
+
+        </div>
+
+      </div>
+
+    <!-- end of game wrapper -->
+    </div>
+
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBA_SvvDloo7TQaAofMoDAhazFyaUDdwFw",
+    authDomain: "rock-paper-scissors-1f17f.firebaseapp.com",
+    databaseURL: "https://rock-paper-scissors-1f17f.firebaseio.com",
+    projectId: "rock-paper-scissors-1f17f",
+    storageBucket: "rock-paper-scissors-1f17f.appspot.com",
+    messagingSenderId: "605561986873",
+    appId: "1:605561986873:web:f7ff3259c53521d54852e8",
+    measurementId: "G-BTRTF6CZDD"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+  // Get a reference to the database service
+
+
+  // ...
+
+
+</script>
+
+  </body>
+</html>

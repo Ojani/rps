@@ -1,0 +1,447 @@
+body {
+  margin: 0;
+  background: #333;
+  font-family: 'Varela Round';
+
+}
+
+:root {
+  --chart-border: .15vw solid white;
+
+  --table-border: .25vw solid #E63462;
+
+  --info-border: 3.07px solid #E63462;
+}
+
+.menuWrapper {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+
+  background: url('homeBg.jpg');
+  background-size: cover;
+  position: absolute;
+
+}
+
+.joinRoom, .createRoom {
+  position: absolute;
+  width: 40vw;
+  display: inline-block;
+  text-align: center;
+  width: 50vw;
+  top: 15vh;
+  left: 0;
+
+}
+
+.createRoom {
+  left: 50vw;
+
+}
+
+.menuTitle {
+  position: relative;
+  font-size: 61.5px;
+  margin-bottom: 5%;
+  border-bottom: 3.8px solid black;
+  width: 90%;
+  color: #222;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+}
+
+.menuDescription {
+  position: relative;
+  font-size: 23px;
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+}
+
+.joinBtn, .createBtn {
+  position: relative;
+  text-align: center;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1588FF;
+  width: 15%;
+  border-radius: 6px;
+  color: white;
+  padding: 7.7px;
+  font-size: 20.7px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.7);
+  top: 10vh;
+  cursor: pointer;
+  transition: .3s;
+
+}
+
+.joinBtn:hover, .createBtn:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+
+}
+
+
+
+
+.gameWrapper {
+  displa: none;
+  width: 100vw;
+  height: 100vh;
+
+
+}
+
+.gameInfo {
+  background: initial;
+  display: inline-block;
+  text-align: center;
+  /*border-right: .25vw solid #E63462;
+  border-bottom: .25vw solid #E63462;*/
+  border-radius:0 0 .5vw 0;
+  padding: 2vw;
+  color: #eee;
+  position: relative;
+
+}
+
+.roomCode {
+  position: relative;
+  border: var(--info-border);
+  background: #000;
+  padding-left: 0;
+  text-align: right;
+  display: inline-block;
+  font-size: 23px;
+  width: 345px;
+
+}
+
+.roomCode b {
+  border-right: var(--info-border);
+  padding: 10.75px 10.75px 7.68px 7.68px;
+  background: #363732;
+  position: absolute;
+  left: 0
+
+}
+
+.roomCopyBtn {
+  display: inline-block;
+  padding: 11.52px;
+  background: #E63462;
+  margin-left: 15.36px;
+  cursor: pointer;
+
+}
+
+.roomCopyBtn:hover {
+  background: #F74573;
+
+}
+
+
+.Scoreboard {
+  border: var(--info-border);
+  width: 345px;
+  text-align: left;
+  font-size: 20px;
+
+}
+
+.scoreBoardTitle {
+  background: #E63462;
+  font-weight: bolder;
+  text-align: center;
+  padding: 7.68px;
+
+}
+
+.playerName {
+  margin: 15.36px;
+
+}
+
+.turn {
+  font-size: 20px;
+
+}
+
+.restartBtn {
+  display: none;
+
+}
+
+
+
+.tableWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48vw;
+  height: 48vw;
+  border-left: var(--table-border);
+  border-bottom: var(--table-border);
+  background: #363732;
+
+}
+
+.table {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+.table div {
+  width: 32%;
+  height: 33%;
+  text-align: center;
+  font-size: 14vw;
+  color: #FFF;
+  color: white;
+  cursor: pointer;
+
+}
+
+.cell0 {
+  border-top: 0;
+  border-right: var(--chart-border);
+  border-bottom: var(--chart-border);
+  border-left: 0;
+
+}
+
+.cell1 {
+  border-top: 0;
+  border-right: var(--chart-border);
+  border-bottom: var(--chart-border);
+  border-left: var(--chart-border);
+
+}
+
+.cell2 {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: var(--chart-border);
+  border-left: var(--chart-border);
+
+}
+
+.cell3 {
+  border-top: var(--chart-border);
+  border-right: var(--chart-border);
+  border-bottom: var(--chart-border);
+  border-left: 0;
+
+}
+
+.cell4 {
+  border-top: var(--chart-border);
+  border-right: var(--chart-border);
+  border-bottom: var(--chart-border);
+  border-left: var(--chart-border);
+
+}
+
+.cell5 {
+  border-top: var(--chart-border);;
+  border-right: 0;
+  border-bottom: var(--chart-border);;
+  border-left: var(--chart-border);;
+
+}
+
+.cell6 {
+  border-top: var(--chart-border);;
+  border-right: var(--chart-border);;
+  border-bottom: 0;
+  border-left: 0;
+
+}
+
+.cell7 {
+  border-top: var(--chart-border);
+  border-right: var(--chart-border);
+  border-bottom: 0;
+  border-left: var(--chart-border);
+
+}
+
+.cell8 {
+  border-top: var(--chart-border);
+  border-right: 0;
+  border-bottom: 0;
+  border-left: var(--chart-border);
+
+}
+
+
+@media only screen and (max-width:800px) {
+
+  .gameInfo {
+    width: 100vw;
+
+  }
+
+  .Scoreboard {
+    position: absolute;
+    left: 50vw;
+    transform: translate(-50%, 0);
+
+  }
+
+  .tableWrapper {
+    top: initial;
+    bottom: 0;
+    left: 50vw;
+    transform: translate(-50%, 0);
+    border-bottom: 0;
+    border-top: var(--table-border);
+    border-left: var(--table-border);
+    border-right: var(--table-border);
+    width: 400px;
+    height: 400px;
+
+  }
+
+  .table div {
+    font-size: 112px;
+
+  }
+
+  .turn {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 13px;
+    top: 250px
+
+  }
+
+
+}
+
+@media only screen and (max-width:450px) {
+
+  /*.menuTitle {
+    font-size: 40px;
+    border-bottom: 3px solid black;
+
+  }
+
+  .menuDescription {
+    font-size: 20px;
+
+  }
+
+  .gameInfo {
+    width: 100vw;
+
+  }
+
+  .Scoreboard {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+  }
+
+  .tableWrapper {
+    top: initial;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-bottom: 0;
+    border-top: var(--table-border);
+    border-left: 0;
+    border-right: 0;
+    width: 100vw;
+    height: 100vw;
+
+  }
+
+  .roomCode {
+    font-size: 14px;
+    width: 60vw;
+
+  }
+
+  .roomCopyBtn {
+    display: inline-block;
+    margin-left: 1vw;
+    cursor: pointer;
+
+  }
+
+  .Scoreboard {
+    width: 60vw;
+    font-size: 13px;
+
+  }
+
+  .turn {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 13px;
+    top: 195px
+
+  }*/
+
+
+
+  :root {
+    --info-border: 2px solid #E63462;
+    --table-border: 2px solid #E63462;
+
+  }
+
+}
+
+@media only screen and (max-width:900px) {
+  .joinRoom, .createRoom {
+    width: 100vw;
+    height: 50vh;
+    display: block;
+    position: relative;
+    left: 0;
+    top: 0;
+
+  }
+
+}
+
+@media only screen and (max-width:430px) {
+
+  .menuTitle {
+    font-size: 35px;
+    border-bottom: 2.7px solid black;
+
+  }
+
+  .menuDescription {
+    font-size: 20px;
+    width: 80%;
+
+  }
+
+  .joinRoom, .createRoom {
+
+
+  }
+
+  .joinBtn, .createBtn {
+    top: 7vh;
+
+  }
+
+}
