@@ -14,7 +14,7 @@ body {
 }
 
 .menuWrapper {
-  display: none;
+  /*display: none;*/
   width: 100vw;
   height: 100vh;
   text-align: center;
@@ -89,7 +89,7 @@ body {
 
 
 .gameWrapper {
-  displa: none;
+  /**/display: none;
   width: 100vw;
   height: 100vh;
 
@@ -130,7 +130,7 @@ body {
 
 }
 
-.roomCopyBtn {
+.roomCopyBtn, .exitBtn {
   display: inline-block;
   padding: 11.52px;
   background: #E63462;
@@ -144,8 +144,29 @@ body {
 
 }
 
+.exitBtn:hover {
+  color: #F74573;
+
+}
+
+.exitBtn {
+  transition: translate(0, -50%);
+  margin-left: 0;
+  background: initial;
+  color: #E63462;
+  position: absolute;
+  margin: 11.52px;
+  font-size: 25px;
+  right: 0;
+  top: 25%;
+
+}
+
+
+
 
 .Scoreboard {
+  position: relative;
   border: var(--info-border);
   width: 345px;
   text-align: left;
@@ -180,13 +201,15 @@ body {
 
 .tableWrapper {
   position: absolute;
-  top: 0;
+  display: flex;
+  top: 50vh;
+  transform: translate(0, -50%);
   right: 0;
   width: 48vw;
-  height: 48vw;
+  height: 100vh;
   border-left: var(--table-border);
-  border-bottom: var(--table-border);
   background: #363732;
+  align-items: center;
 
 }
 
@@ -197,7 +220,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 48vw;
 
 }
 
@@ -284,6 +307,18 @@ body {
 
 }
 
+@media only screen and (max-width:900px) {
+  .joinRoom, .createRoom {
+    width: 100vw;
+    height: 50vh;
+    display: block;
+    position: relative;
+    left: 0;
+    top: 0;
+
+  }
+
+}
 
 @media only screen and (max-width:800px) {
 
@@ -292,10 +327,18 @@ body {
 
   }
 
+  .roomCode {
+    position: absolute;
+    left: 50vw;
+    transform: translate(-50%, 0);
+
+  }
+
   .Scoreboard {
     position: absolute;
     left: 50vw;
     transform: translate(-50%, 0);
+    margin-top: 30px;
 
   }
 
@@ -310,6 +353,11 @@ body {
     border-right: var(--table-border);
     width: 400px;
     height: 400px;
+
+  }
+
+  .table {
+    height: 100%;
 
   }
 
@@ -330,118 +378,94 @@ body {
 
 }
 
-@media only screen and (max-width:450px) {
-
-  /*.menuTitle {
+@media only screen and (max-width:440px) {
+  .menuTitle {
     font-size: 40px;
-    border-bottom: 3px solid black;
 
   }
+
 
   .menuDescription {
     font-size: 20px;
-
-  }
-
-  .gameInfo {
     width: 100vw;
 
   }
 
+}
+
+@media only screen and (max-width:405px) {
+
+  .roomCode {
+    width: 300px;
+    font-size: 19px;
+
+  }
+
   .Scoreboard {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
+    width: 300px;
+
+  }
+
+  .exitBtn {
+    font-size: 20px;
 
   }
 
   .tableWrapper {
-    top: initial;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    border-bottom: 0;
-    border-top: var(--table-border);
-    border-left: 0;
-    border-right: 0;
-    width: 100vw;
-    height: 100vw;
+    width: 300px;
+    height: 300px;
 
   }
 
-  .roomCode {
-    font-size: 14px;
-    width: 60vw;
-
-  }
-
-  .roomCopyBtn {
-    display: inline-block;
-    margin-left: 1vw;
-    cursor: pointer;
-
-  }
-
-  .Scoreboard {
-    width: 60vw;
-    font-size: 13px;
+  .table div {
+    font-size: 90px;
 
   }
 
   .turn {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
     font-size: 13px;
-    top: 195px
-
-  }*/
-
-
-
-  :root {
-    --info-border: 2px solid #E63462;
-    --table-border: 2px solid #E63462;
+    top: 227px;
 
   }
 
 }
 
-@media only screen and (max-width:900px) {
-  .joinRoom, .createRoom {
-    width: 100vw;
-    height: 50vh;
-    display: block;
-    position: relative;
-    left: 0;
-    top: 0;
+@media only screen and (max-width:340px) {
+
+  .roomCode {
+    width: 250px;
+    font-size: 15px;
 
   }
 
-}
-
-@media only screen and (max-width:430px) {
-
-  .menuTitle {
-    font-size: 35px;
-    border-bottom: 2.7px solid black;
+  .Scoreboard {
+    font-size: 15px;
+    width: 250px;
+    margin-top: 20px;
 
   }
 
-  .menuDescription {
-    font-size: 20px;
-    width: 80%;
+  .exitBtn {
+    font-size: 17px;
 
   }
 
-  .joinRoom, .createRoom {
+  .tableWrapper {
+    width: 250px;
+    height: 250px;
 
+  }
+
+  .table div {
+    font-size: 70px;
 
   }
 
-  .joinBtn, .createBtn {
-    top: 7vh;
+  .turn {
+    font-size: 12px;
+    top: 200px;
 
   }
+
 
 }

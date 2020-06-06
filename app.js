@@ -3,7 +3,6 @@ window.onload = function() {
 // Get a reference to the database service
 var database = firebase.database();
 
-
 var ref;
 var roomId;
 var player1Name;
@@ -17,19 +16,18 @@ var opponent;
 
 
 //copy room code button
+const copyArea = $(`<textarea style="opacity:0" readonly"></textarea>`)[0];
+document.body.appendChild(copyArea);
+
 $(".roomCopyBtn").click(() => {
-  var txt = $(".roomCode span").text();
-  var e = $(`<textarea">${txt}</textarea>`)[0];
+  const text = $(".roomCode span").text();
 
-  document.body.appendChild(e);
+  copyArea.innerText = text;
 
-  e.select();
-  e.setSelectionRange(0, 99);
+  copyArea.select();
+  copyArea.setSelectionRange(0, 99);
 
   document.execCommand("copy");
-
-  document.body.removeChild(e);
-
 
   swal.fire({
     icon: "success",
@@ -46,8 +44,63 @@ $(".roomCopyBtn").click(() => {
 
   })
 
+  ///end of copy function
+});
 
-})
+
+
+//exit button event
+$(".exitBtn").click(ask2exit)
+
+//asking to exit game when user clicks on button
+function ask2exit() {
+
+  swal.fire({
+    icon: "warning",
+    title: "Are you sure you want to exit the session?",
+    text: "You won\'t be able to come back to this specific session afterwards.",
+    showCancelButton: true,
+    confirmButtonText: "Confirm",
+    cancelButtonColor: '#d33',
+    dangerMode: true
+
+  })
+  .then(result => {
+    if(result.value) {
+      exitSession({
+        icon: "success",
+        text: "You have exited the game."
+
+      });
+
+    }
+
+  });
+
+}
+
+//exiting game function
+function exitSession(swalConfig) {
+  //swal.fire(swalConfig);
+
+  sessionStorage.clear();
+
+  location.reload();
+
+}
+
+
+
+//using session storage if available
+var storedData = sessionStorage.getItem("sessionStorageObj");
+if(storedData) {
+  storedData = JSON.parse(storedData);
+
+  var { ref, roomId, player1Name, player2Name, host, turnOf, has2players, userName, opponent } = storedData;
+
+  enteredRoom();
+
+}
 
 
 
@@ -269,6 +322,24 @@ function enteredRoom() {
     }
 
   });
+
+  //setting up session storage variables in case the user refreshes
+  var sessionStorageObj = {
+    ref: ref,
+    roomId: roomId,
+    player1Name: player1Name,
+    player2Name: player2Name,
+    host: host,
+    turnOf: turnOf,
+    has2players: has2players,
+    userName: userName,
+    opponent: opponent
+
+  }
+
+  sessionStorage.setItem("sessionStorageObj", JSON.stringify(sessionStorageObj));
+
+  //end of enterRoom function
 
 }
 
