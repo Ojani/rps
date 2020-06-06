@@ -484,13 +484,13 @@ function gameWon(letter) {
 document.querySelector(".restartBtn").onclick = restartGame;
 
 function restartGame() {
+  $(".table div").text("");
+
   database.ref("rooms/"+roomId).update({
     turnOf: player1Name,
     table: ["","","","","","","","",""]
 
   });
-
-  $(".table div").text("");
 
 }
 
