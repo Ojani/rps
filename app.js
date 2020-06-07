@@ -335,10 +335,36 @@ function enteredRoom() {
 
     }
 
+    //when player 1 leaves
+    if (!data.val().player1 && !host && has2players) {
+      swal.fire(player2Name+" has left the game.");
+
+      player1Name = player2Name;
+      player2Name = "Waiting for player to join...";
+
+      document.querySelector(".opponent b").innerText = "Waiting for player to join...";
+      $(".playerName span").text(0);
+      has2players = false;
+
+      host = true;
+
+      database.ref("rooms/"+roomId+"/players").set({
+        player1: {'name':player1Name}
+
+      });
+
+      restartGame();
+
+    }
+
+
+    //removing player from db when disconnecting
+    database.ref("rooms/"+roomId+"/players").onDisconnect().cancel();
+    database.ref("rooms/"+roomId+"/players").onDisconnect().update({player1: null});
+
   });
 
-  //removing player from db when disconnecting
-  eval(`database.ref("rooms/"+roomId+"/players").onDisconnect().update({${host?"player1":"player2"}:null})`);
+
 
   //event listener to update game when move is made
   database.ref("rooms/"+roomId+"/table").on("value", data => {
