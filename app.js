@@ -9,13 +9,23 @@ firebase.auth().signInAnonymously().catch(function(error) {
   });
 });
 
+var user;
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     $(".loadingScreen").remove();
+    user = user;
+
+    //initUser();
 
   }
 
 });
+
+
+
+
+
 
 // Get a reference to the database service
 var database = firebase.database();
@@ -118,6 +128,8 @@ if(storedData) {
   enteredRoom();
 
 }
+
+
 
 
 
@@ -291,7 +303,7 @@ function enteredRoom() {
   document.querySelector(".gameWrapper").style.display = "initial";
   document.querySelector(".roomCode span").innerText = roomId;
   document.querySelector(".name b").innerText = userName+":";
-  document.querySelector(".opponent b").innerText = opponent+":";
+  if(!host) document.querySelector(".opponent b").innerText = opponent+":";
   document.querySelector(".turn span").innerText = player1Name;
 
   updateGame();
@@ -300,6 +312,7 @@ function enteredRoom() {
   //setting up names
   database.ref("rooms/"+roomId+"/players").on("value", data => {
 
+    //when a player joins
     if (data.val().player2 && host) {
 
       player2Name = data.val().player2.name;
@@ -311,7 +324,21 @@ function enteredRoom() {
 
     }
 
+    //when player 2 leaves
+    if (!data.val().player2 && host && has2players) {
+      swal.fire(player2Name+" has left the game.");
+
+      document.querySelector(".opponent b").innerText = "Waiting for player to join...";
+      $(".playerName span").text(0);
+      has2players = false;
+      restartGame();
+
+    }
+
   });
+
+  //removing player from db when disconnecting
+  eval(`database.ref("rooms/"+roomId+"/players").onDisconnect().update({${host?"player1":"player2"}:null})`);
 
   //event listener to update game when move is made
   database.ref("rooms/"+roomId+"/table").on("value", data => {
