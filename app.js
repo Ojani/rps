@@ -1,5 +1,22 @@
 window.onload = function() {
 
+//authentication
+/*firebase.auth().signInAnonymously().catch(function(error) {
+  swal.fire({
+    icon: "error",
+    title: "Something went wrong.",
+    text: error.message
+  });
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {*/
+    $(".loadingScreen").remove();
+
+  //}
+
+//});
+
 // Get a reference to the database service
 var database = firebase.database();
 
