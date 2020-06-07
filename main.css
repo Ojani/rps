@@ -2,6 +2,8 @@ body {
   margin: 0;
   background: #333;
   font-family: 'Varela Round';
+  width: 100vw;
+  overflow-x: hidden;
 
 }
 
