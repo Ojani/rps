@@ -360,7 +360,7 @@ function enteredRoom() {
 
     //removing player from db when disconnecting
     database.ref("rooms/"+roomId+"/players").onDisconnect().cancel();
-    database.ref("rooms/"+roomId+"/players").onDisconnect().update({player1: null});
+    eval(`database.ref("rooms/"+roomId+"/players").onDisconnect().update({${host? "player1":"player2"}: null});`);
 
   });
 
