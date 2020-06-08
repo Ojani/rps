@@ -206,7 +206,7 @@ function enterRoom() {
 
     html:
     '<input id="nameInput2" class="swal2-input" placeholder="Enter a username" required>' +
-    '<input id="codeInput" class="swal2-input" placeholder="Enter room code" required>',
+    '<input autocapitalize="off" autocomplete="off" autocorrect="false" spellcheck="false" id="codeInput" class="swal2-input" placeholder="Enter room code" required>',
   preConfirm: function () {
     return new Promise(function (resolve) {
       resolve({
@@ -382,9 +382,9 @@ function enteredRoom() {
       data.forEach(value => {
         document.querySelector(".cell"+value.key).innerText = value.val();
 
-        updateGame();
-
       });
+
+      updateGame();
 
       //switching turns
       database.ref("rooms/"+roomId+"/turnOf").on("value", data => {
