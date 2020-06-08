@@ -507,34 +507,21 @@ function updateGame() {
 
     var cells = [winningCombos[val][0], winningCombos[val][1], winningCombos[val][2]];
 
-    if (won) {
-      gameWon(letterWon, cells);
-      break;
-
-    } else {
-        check4tie();
-        
-    }
+    if (won) { gameWon(letterWon, cells); break; }
 
   }
 
   //checking for ties
-  function check4tie() {
-
-    var tie = true;
+  if(!won) {
     for(let i=0;i<9;i++) {
-      if ($("cell"+i).text() == "") {
-        tie = false
+      if ($(".cell"+i).text() == "") {
+        return;
 
       }
     }
 
     //when there is a tie
-    if(tie) {
-      swal.fire("It\'s a draw!");
-      restartGame();
-
-    }
+    gameTied();
 
   }
 
@@ -548,7 +535,7 @@ function updateGame() {
 function gameWon(letter, cells) {
 
   //doing winning animation
-  $(".gameInfo, .table div").addClass("blur4win");
+  $(".table div").addClass("blur4win");
   $(".gameWrapper").css("pointer-events", "none");
 
   cells.forEach(index => {
@@ -580,8 +567,50 @@ function gameWon(letter, cells) {
 
   }, 2000);
 
-
+//end of game won function
 }
+
+
+
+//tied gam function
+function gameTied() {
+
+  $(".gameWrapper").css("pointer-events", "none");
+
+  for(let i=0; i < 9; i++) {
+    let cell = $(".cell"+i);
+
+    if(cell.text() == "X") {
+      cell.addClass("pink_tie");
+
+    } else {
+      cell.addClass("blue_tie");
+
+    }
+
+  }
+
+  //after animation ends
+  setTimeout(() => {
+    $(".pink_tie").removeClass("pink_tie");
+    $(".blue_tie").removeClass("blue_tie");
+
+    swal.fire("It\'s a draw!");
+
+    //resetting game
+    restartGame();
+
+    $(".gameWrapper").css("pointer-events", "");
+
+  }, 2000);
+
+
+//end of game tied function
+}
+
+
+
+
 
 
 //restarting game

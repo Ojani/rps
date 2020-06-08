@@ -513,18 +513,10 @@ body {
 }
 
 
-
+/*winning animations*/
 .blur4win {
   animation: blur_animation 1.25s;
   animation-fill-mode: forwards;
-
-}
-
-@keyframes blur_animation {
-
-  0% { filter: brightness(100%); }
-
-  100% { filter: brightness(30%); }
 
 }
 
@@ -534,10 +526,42 @@ body {
 
 }
 
+/*tied game animations*/
+.pink_tie {
+  animation: pink_animation 1.5s;
+  animation-fill-mode: forwards;
+
+}
+
+.blue_tie {
+  animation: blue_animation 1.5s;
+  animation-fill-mode: forwards;
+
+}
+
+
+
+
+@keyframes blur_animation {
+
+  0% { color: rgba(255, 255, 255, 1) }
+
+  100% { color: rgba(255, 255, 255, .2) }
+
+}
+
 @keyframes pink_animation {
 
   0% { color: white; }
 
   100% { color: #E63462; }
+
+}
+
+@keyframes blue_animation {
+
+  0% { color: white; }
+
+  100% { color: #33DCFF; }
 
 }
