@@ -85,7 +85,7 @@ function ask2exit() {
   swal.fire({
     icon: "warning",
     title: "Are you sure you want to exit the session?",
-    text: "You won\'t be able to come back to this specific session afterwards.",
+    text: "You won\'t be able to come back to this specific session afterwards if both players leave.",
     showCancelButton: true,
     confirmButtonText: "Confirm",
     cancelButtonColor: '#d33',
@@ -119,15 +119,13 @@ function exitSession(swalConfig) {
 
 
 //using session storage if available
-var storedData = sessionStorage.getItem("sessionStorageObj");
+/*var storedData = sessionStorage.getItem("sessionStorageObj");
 if(storedData) {
   storedData = JSON.parse(storedData);
 
-  var { ref, roomId, player1Name, player2Name, host, turnOf, has2players, userName, opponent } = storedData;
+  userNameOk(storedData);
 
-  enteredRoom();
-
-}
+}*/
 
 
 
@@ -236,7 +234,9 @@ function enterRoom() {
     userName = player2Name;
     userNameOk(data);
 
-});
+  });
+
+}
 
 function userNameOk(data) {
 
@@ -270,7 +270,6 @@ function userNameOk(data) {
 }
 
 
-    };
 
 
 
@@ -357,10 +356,20 @@ function enteredRoom() {
 
     }
 
+    //managing connections
+    if(has2players) {
+      //removing player from db when disconnecting
+      database.ref("rooms/"+roomId+"/players").onDisconnect().cancel();
+      database.ref("rooms/"+roomId).onDisconnect().cancel();
+      eval(`database.ref("rooms/"+roomId+"/players").onDisconnect().update({${host? "player1":"player2"}: null});`);
 
-    //removing player from db when disconnecting
-    database.ref("rooms/"+roomId+"/players").onDisconnect().cancel();
-    eval(`database.ref("rooms/"+roomId+"/players").onDisconnect().update({${host? "player1":"player2"}: null});`);
+    } else {
+      //deleting room when both players disconnect
+      database.ref("rooms/"+roomId+"/players").onDisconnect().cancel();
+      database.ref("rooms/"+roomId).onDisconnect().cancel();
+      database.ref("rooms/"+roomId).onDisconnect().set(null);
+
+    }
 
   });
 
@@ -394,20 +403,12 @@ function enteredRoom() {
   });
 
   //setting up session storage variables in case the user refreshes
-  var sessionStorageObj = {
-    ref: ref,
-    roomId: roomId,
-    player1Name: player1Name,
-    player2Name: player2Name,
-    host: host,
-    turnOf: turnOf,
-    has2players: has2players,
-    userName: userName,
-    opponent: opponent
+  /*var sessionStorageObj = {
+    value: { roomId: roomId }
 
   }
 
-  sessionStorage.setItem("sessionStorageObj", JSON.stringify(sessionStorageObj));
+  sessionStorage.setItem("sessionStorageObj", JSON.stringify(sessionStorageObj));*/
 
   //end of enterRoom function
 
@@ -491,6 +492,7 @@ function updateGame() {
   ];
 
   //looping through table array and comparing it to winning conditions
+  var won = false;
   for (let val=0; val < winningCombos.length; val++) {
     if (areEqual(
       table[winningCombos[val][0]],
@@ -499,28 +501,40 @@ function updateGame() {
     )) {
       //running game won function along with the letter that one
       var letterWon = table[winningCombos[val][0]];
+      won = true;
 
     }
 
-    if (letterWon) { gameWon(letterWon); break; return; }
+    var cells = [winningCombos[val][0], winningCombos[val][1], winningCombos[val][2]];
 
+    if (won) {
+      gameWon(letterWon, cells);
+      break;
+
+    } else {
+        check4tie();
+        
+    }
 
   }
 
   //checking for ties
-  var tie = true;
-  for(let i=0;i<9;i++) {
-    if ($(`.table div:eq(${i})`).text() == "") {
-      tie = false
+  function check4tie() {
+
+    var tie = true;
+    for(let i=0;i<9;i++) {
+      if ($("cell"+i).text() == "") {
+        tie = false
+
+      }
+    }
+
+    //when there is a tie
+    if(tie) {
+      swal.fire("It\'s a draw!");
+      restartGame();
 
     }
-  }
-
-  //when there is a tie
-  if(tie) {
-    swal.fire("It\'s a draw!");
-
-    restartGame();
 
   }
 
@@ -531,21 +545,41 @@ function updateGame() {
 
 
 // runs when someone wins the game
-function gameWon(letter) {
-  var player = letter == "X"? player1Name : player2Name;
-  swal.fire(`${player.toUpperCase()} WON THE GAME!`);
+function gameWon(letter, cells) {
 
-  //resetting game
-  restartGame();
+  //doing winning animation
+  $(".gameInfo, .table div").addClass("blur4win");
+  $(".gameWrapper").css("pointer-events", "none");
 
-  //adding points
-  if(player = userName) {
-    $(".name span").text(parseInt($(".name span").text())+1);
+  cells.forEach(index => {
+    $(".cell"+index).removeClass("blur4win");
+    $(".cell"+index).addClass("pink4win");
 
-  } else {
-    $(".opponent span").text(parseInt($(".opponent span").text())+1);
+  });
 
-  }
+  //after animation ends
+  setTimeout(() => {
+    $(".blur4win").removeClass("blur4win");
+    $(".pink4win").removeClass("pink4win");
+
+
+    var player = letter == "X"? player1Name : player2Name;
+    swal.fire(`${player.toUpperCase()} WON THE GAME!`);
+
+    //resetting game
+    restartGame();
+
+    //adding points
+    if(player = userName) {
+      $(".name span").text(parseInt($(".name span").text())+1);
+
+    } else {
+      $(".opponent span").text(parseInt($(".opponent span").text())+1);
+
+    }
+
+  }, 2000);
+
 
 }
 
@@ -554,11 +588,16 @@ function gameWon(letter) {
 document.querySelector(".restartBtn").onclick = restartGame;
 
 function restartGame() {
+
   $(".table div").text("");
 
   database.ref("rooms/"+roomId).update({
     turnOf: player1Name,
     table: ["","","","","","","","",""]
+
+  }).then(() => {
+
+    $(".gameWrapper").css("pointer-events", "");
 
   });
 
