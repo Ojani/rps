@@ -557,7 +557,7 @@ function gameWon(letter, cells) {
     restartGame();
 
     //adding points
-    if(player = userName) {
+    if(player == userName) {
       $(".name span").text(parseInt($(".name span").text())+1);
 
     } else {
