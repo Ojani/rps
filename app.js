@@ -173,8 +173,6 @@ function createRoom() {
 
     if (player1Name == "" || player1Name == null) { swal.fire({ icon: "error", title: "Error",text: "Name cannot not be empty"}); return }
 
-    if (player1Name.indexOf(" ") > -1) { swal.fire({ icon: "error", title: "Error",text: "Name cannot contain spaces"}); return }
-
     if (player1Name.length > 17) { userName = player1Name = player1Name.slice(0,15) + "..." }
 
     //creating room code
@@ -226,8 +224,6 @@ function enterRoom() {
     player2Name = data.value.name;
 
     if (player2Name == "" || player2Name == null) { swal.fire({ icon: "error", text:"Name cannot be empty." }); return }
-
-    if (player2Name.indexOf(" ") > -1) {swal.fire({ icon: "error", text:"Name cannot contain spaces." }); return }
 
     if (player2Name.length > 17) player2Name = player2Name.slice(0,15) + "...";
 
